@@ -1,0 +1,9 @@
+{application, rpsls,
+ [
+  {description, "Rock Paper Scissors Lizzard Spock"},
+  {vsn, "0.0.0"},
+  {registered, []},
+  {applications, [kernel, stdlib]},
+  {mod, {rpsls, []}},
+  {env, []}
+ ]}.
