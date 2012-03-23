@@ -5,7 +5,7 @@ The World Championship will take place on Tuesday March 27th.
 
 The prize is a ticket for the upcoming Erlang Factory on the 29th and 30th, in San Francisco.
 
-To play this game just create a module that implements the *rpsls_player* behaviour, submit a pull-request, and we'll add it to the competition.
+To play this game just create a module that implements the [*rpsls_player*](https://github.com/inaka/rpsls/blob/master/src/rpsls_player.erl) behaviour, submit a pull-request, and we'll add it to the competition.
 
 * Sponsored by [Inaka](http://inakanetworks.com)
 * You can see some sample implementations [here](https://github.com/inaka/rpsls/tree/master/src/players)
