@@ -1,8 +1,75 @@
 MATCH #1:
-	randy (by tovbinm) vs. rockemspockem (by leorleor)
+	5 randy (by tovbinm) vs. rockemspockem (by leorleor) 4
 
 MATCH #2:
-	beatself (by georgeye) vs. rockemspockem (by leorleor)
+	4 beatself (by georgeye) vs. rockemspockem (by leorleor) 5
 
 MATCH #3:
-	randy (by tovbinm) vs. beatself (by georgeye)
+	3 randy (by tovbinm) vs. beatself (by georgeye) 5
+
+GAME LOG:
+21:41:24.298 [info] scissors decapitate lizard
+21:41:24.298 [info] 1 rpsls_randy_player vs. rpsls_leor_player 0
+21:41:24.299 [info] rock is vaporized by spock
+21:41:24.299 [info] 1 rpsls_randy_player vs. rpsls_leor_player 1
+21:41:24.299 [info] paper is the same as paper
+21:41:24.299 [info] 1 rpsls_randy_player vs. rpsls_leor_player 1
+21:41:24.299 [info] paper disproves spock
+21:41:24.300 [info] 2 rpsls_randy_player vs. rpsls_leor_player 1
+21:41:24.300 [info] rock is vaporized by spock
+21:41:24.300 [info] 2 rpsls_randy_player vs. rpsls_leor_player 2
+21:41:24.300 [info] paper disproves spock
+21:41:24.300 [info] 3 rpsls_randy_player vs. rpsls_leor_player 2
+21:41:24.300 [info] lizard eats paper
+21:41:24.301 [info] 4 rpsls_randy_player vs. rpsls_leor_player 2
+21:41:24.301 [info] scissors cut paper
+21:41:24.301 [info] 5 rpsls_randy_player vs. rpsls_leor_player 2
+21:41:24.301 [info] spock is disproved by paper
+21:41:24.301 [info] 5 rpsls_randy_player vs. rpsls_leor_player 3
+21:41:24.302 [info] lizard is crushed by rock
+21:41:24.302 [info] 5 rpsls_randy_player vs. rpsls_leor_player 4
+{rpsls_randy_player,5,4}
+2> rpsls:play(rpsls_beatself_player, rpsls_leor_player, 10).
+21:42:01.575 [info] spock smashes scissors
+21:42:01.575 [info] 1 rpsls_beatself_player vs. rpsls_leor_player 0
+21:42:01.575 [info] scissors cut paper
+21:42:01.576 [info] 2 rpsls_beatself_player vs. rpsls_leor_player 0
+21:42:01.576 [info] paper disproves spock
+21:42:01.576 [info] 3 rpsls_beatself_player vs. rpsls_leor_player 0
+21:42:01.576 [info] rock crushes scissors
+21:42:01.577 [info] 4 rpsls_beatself_player vs. rpsls_leor_player 0
+21:42:01.577 [info] lizard is crushed by rock
+21:42:01.577 [info] 4 rpsls_beatself_player vs. rpsls_leor_player 1
+21:42:01.577 [info] scissors are smashed by spock
+21:42:01.577 [info] 4 rpsls_beatself_player vs. rpsls_leor_player 2
+21:42:01.578 [info] paper is the same as paper
+21:42:01.578 [info] 4 rpsls_beatself_player vs. rpsls_leor_player 2
+21:42:01.578 [info] rock is vaporized by spock
+21:42:01.578 [info] 4 rpsls_beatself_player vs. rpsls_leor_player 3
+21:42:01.578 [info] lizard is decapitated by scissors
+21:42:01.579 [info] 4 rpsls_beatself_player vs. rpsls_leor_player 4
+21:42:01.579 [info] spock is disproved by paper
+21:42:01.579 [info] 4 rpsls_beatself_player vs. rpsls_leor_player 5
+{rpsls_leor_player,5,4}
+3> rpsls:play(rpsls_randy_player, rpsls_beatself_player, 10).
+21:42:38.347 [info] scissors is the same as scissors
+21:42:38.348 [info] 0 rpsls_randy_player vs. rpsls_beatself_player 0
+21:42:38.348 [info] spock is disproved by paper
+21:42:38.348 [info] 0 rpsls_randy_player vs. rpsls_beatself_player 1
+21:42:38.349 [info] spock vaporizes rock
+21:42:38.349 [info] 1 rpsls_randy_player vs. rpsls_beatself_player 1
+21:42:38.349 [info] spock is poisoned by lizard
+21:42:38.349 [info] 1 rpsls_randy_player vs. rpsls_beatself_player 2
+21:42:38.349 [info] spock is disproved by paper
+21:42:38.350 [info] 1 rpsls_randy_player vs. rpsls_beatself_player 3
+21:42:38.350 [info] lizard eats paper
+21:42:38.350 [info] 2 rpsls_randy_player vs. rpsls_beatself_player 3
+21:42:38.350 [info] spock vaporizes rock
+21:42:38.350 [info] 3 rpsls_randy_player vs. rpsls_beatself_player 3
+21:42:38.351 [info] lizard is the same as lizard
+21:42:38.351 [info] 3 rpsls_randy_player vs. rpsls_beatself_player 3
+21:42:38.351 [info] rock is vaporized by spock
+21:42:38.351 [info] 3 rpsls_randy_player vs. rpsls_beatself_player 4
+21:42:38.351 [info] paper is cut by scissors
+21:42:38.352 [info] 3 rpsls_randy_player vs. rpsls_beatself_player 5
+{rpsls_beatself_player,5,3}
