@@ -18,6 +18,7 @@
 %% Application callbacks
 -export([start/0, start/2, stop/1]).
 -export([play/2, play/3]).
+-export([players/0]).
 
 %% ===================================================================
 %% API (Global)
@@ -49,6 +50,11 @@ play(Mod1, Mod2, Rounds) ->
 %% @equiv play(Mod1, Mod2, 1)
 -spec play(atom(), atom()) -> {Result::draw|atom(), Score1::non_neg_integer(), Score2::non_neg_integer()}.
 play(Mod1, Mod2) -> play(Mod1, Mod2, 1).
+
+%% @doc List all players on src/players
+-spec players() -> [atom()].
+players() ->
+  [list_to_atom(lists:takewhile(fun(C) -> C /= $. end, Player)) || "src/players/" ++ Player <- filelib:wildcard("src/players/*.erl")].
 
 %% ===================================================================
 %% Application callbacks
