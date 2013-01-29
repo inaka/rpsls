@@ -18,7 +18,5 @@ generate(3) -> scissors;
 generate(4) -> lizard;
 generate(_) -> spock.
 
-Lisa = generate(random:uniform(8)).
-
 -spec play(History::[{You::rpsls_player:choice(), Rival::rpsls_player:choice()}], State::term()) -> {rpsls_player:choice(), NewState::term()}.
-play(_History, {}) -> {Lisa, {}}.
+play(_History, {}) -> {generate(random:uniform(8)), {}}.
