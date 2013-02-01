@@ -1,5 +1,13 @@
 -module (rpsls_alternating_player_SUITE).
--export([test1/1, test2/1, test3/1, test4/1, test5/1, test10/1]).
+-export([all/0, init_per_suite/1, end_per_suite/1, test1/1, test2/1, test3/1, test4/1, test5/1, test10/1]).
+
+all() -> [test1, test2, test3, test4, test5, test10].
+
+init_per_suite(_Config) ->
+	[].
+
+end_per_suite(_Config) ->
+	[].
 
 test1(_) -> {draw, _, [{rock,rock}]} = rpsls:play(rpsls_alternating_player,rpsls_alternating_player,1).
 test2(_) -> {draw, _, [{paper,paper}, {rock,rock}]} = rpsls:play(rpsls_alternating_player,rpsls_alternating_player,2).

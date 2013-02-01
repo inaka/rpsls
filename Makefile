@@ -23,3 +23,8 @@ shell: all
 
 run: all
 	${ERL} -boot start_sasl -s rpsls
+
+test: 
+	find . -type f -name "*.erl" -exec cp {} ebin \; #Copy the files to the known directory
+	rebar -v 3 ct skip_deps=true 
+	rm ebin/*.erl #removing the files from this directory, restoring initial state
