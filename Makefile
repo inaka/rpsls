@@ -23,3 +23,11 @@ shell: all
 
 run: all
 	${ERL} -boot start_sasl -s rpsls
+
+compile: clean
+	rebar compile
+
+test2: compile 
+	find . -type f -name "*.erl" -exec cp {} ebin \; #Copy the files to the known directory
+	rebar -v 3 ct skip_deps=true 
+	rm ebin/*.erl 

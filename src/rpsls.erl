@@ -71,11 +71,11 @@ stop([]) -> ok.
 %% Private Functions
 %% ===================================================================
 %% @private
-play(#state{rounds = 0, score1 = Score, score2 = Score}) -> {draw, Score};
+play(#state{rounds = 0, score1 = Score, score2 = Score, history = History}) -> {draw, Score, History};
 play(State = #state{rounds = 0}) when State#state.score1 > State#state.score2 ->
-  {State#state.mod1, State#state.score1, State#state.score2};
+  {State#state.mod1, State#state.score1, State#state.score2, State#state.history};
 play(State = #state{rounds = 0}) when State#state.score1 < State#state.score2 ->
-  {State#state.mod2, State#state.score2, State#state.score1};
+  {State#state.mod2, State#state.score2, State#state.score1, State#state.history};
 play(State) ->
   Turn1 =
     try (State#state.mod1):play(State#state.history, State#state.st1) of
