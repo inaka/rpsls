@@ -2,8 +2,6 @@
 -export([test/1, test2/1, test3/1, test4/1]).
 
 
-%%testInit() -> [] = rpsls_bart_player:init().
-%%testPlay() -> {rock, _} = rpsls_bart_player:play().
 
 test(_) -> {draw, _, [{rock,rock}]} = rpsls:play(rpsls_bart_player,rpsls_bart_player,1).
 
