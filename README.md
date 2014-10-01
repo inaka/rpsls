@@ -15,3 +15,11 @@ To play this game just create a module that implements the [*rpsls_player*](http
 * Entries must compile to BEAM code but can be in any language that can do so - effenne, LFE, Elixir, etc.
 * Thanks to SpawnFest, which granted us the ticket, but we don't need it (we're already going) so we're having fun giving it away!                                                                            
 * Our decision is final!
+
+## Contact Us
+For **questions** or **general comments** regarding the use of this library, please use our public
+[hipchat room](https://www.hipchat.com/gpBpW3SsT).
+
+If you find any **bugs** or have a **problem** while using this library, please [open an issue](https://github.com/inaka/rpsls/issues/new) in this repo (or a pull request :)).
+
+And you can check all of our open-source projects at [inaka.github.io](http://inaka.github.io)
