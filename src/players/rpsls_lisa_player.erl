@@ -9,7 +9,7 @@
 
 %% @private
 -spec init() -> State::term().
-init() -> _ = random:seed(erlang:now()), {}.
+init() -> {}.
 
 
 generate(1) -> rock;
@@ -19,4 +19,4 @@ generate(4) -> lizard;
 generate(_) -> spock.
 
 -spec play(History::[{You::rpsls_player:choice(), Rival::rpsls_player:choice()}], State::term()) -> {rpsls_player:choice(), NewState::term()}.
-play(_History, {}) -> {generate(random:uniform(8)), {}}.
+play(_History, {}) -> {generate(rand:uniform(8)), {}}.

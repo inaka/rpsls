@@ -12,8 +12,6 @@
 -spec init() -> State::term().
 init() -> spock.
 
--spec play(History::[{You::rpsls_player:choice(), Rival::rpsls_player:choice()}], State::term()) -> {rpsls_player:choice(), NewState::term()}.
-
 choose_winner(spock) ->
 	lizard;
 
@@ -29,6 +27,7 @@ choose_winner(paper) ->
 choose_winner(scissors) ->
 	spock.
 
+-spec play(rpsls_player:history(), rpsls_player:state()) -> {rpsls_player:choice(), NewState::term()}.
 play(History, _State) ->
 	MoveCount = lists:foldl(
 		fun(Round, Acc) ->

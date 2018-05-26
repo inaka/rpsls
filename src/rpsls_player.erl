@@ -7,5 +7,11 @@
 -type choice() :: rock | paper | scissors | lizard | spock.
 -export_type([choice/0]).
 
--callback init() -> State::term().
--callback play(History::[{You::choice(), Rival::choice()}], State::term()) -> {choice(), NewState::term()}.
+-type history() :: [{You::choice(), Rival::choice()}].
+-export_type([history/0]).
+
+-type state() :: term().
+-export_type([state/0]).
+
+-callback init() -> state().
+-callback play(history(), state()) -> {choice(), state()}.

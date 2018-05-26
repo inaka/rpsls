@@ -12,7 +12,7 @@
 
 %% @private
 -spec init() -> State::term().
-init() -> _ = random:seed(erlang:now()), {}.
+init() -> {}.
 
 
 
@@ -60,7 +60,7 @@ analyseHistory(Logg, Calc) ->
 
 draw(Logg, Options) -> 
 
-	Random = random:uniform(),
+	Random = rand:uniform(),
 
 	Probabilities = analyseHistory(Logg, Options),
 

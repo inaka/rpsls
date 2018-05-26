@@ -24,8 +24,8 @@
 %% API (Global)
 %% ===================================================================
 %% @doc Starts the application
--spec start() -> ok | {error, term()}.
-start() -> application:start(?MODULE).
+-spec start() -> {ok, [atom()]}.
+start() -> application:ensure_all_started(?MODULE).
 
 %% @doc Confronts two modules in a deadly match
 -spec play(Mod1::atom(), Mod2::atom(), pos_integer()) ->
@@ -48,7 +48,11 @@ play(Mod1, Mod2, Rounds) ->
   end.
 
 %% @equiv play(Mod1, Mod2, 1)
--spec play(atom(), atom()) -> {Result::draw|atom(), Score1::non_neg_integer(), Score2::non_neg_integer()}.
+-spec play(module(), module()) ->
+    {module(), rival_disqualified}
+  | {draw, both_disqualified}
+  | {draw, non_neg_integer(), rpsls_player:history()}
+  | {module(), non_neg_integer(), non_neg_integer(), rpsls_player:history()}.
 play(Mod1, Mod2) -> play(Mod1, Mod2, 1).
 
 %% @doc List all players on src/players
@@ -82,11 +86,11 @@ play(State) ->
       {Choice1, State1} when ?is_choice(Choice1) ->
         {Choice1, State1};
       InvalidResult1 ->
-        lager:error("~p return invalid result: ~p", [State#state.mod1, InvalidResult1]),
+        _ = lager:error("~p return invalid result: ~p", [State#state.mod1, InvalidResult1]),
         mod1_failure
     catch
       _:Error1 ->
-        lager:error("~p failed: ~p", [State#state.mod1, Error1]),
+        _ = lager:error("~p failed: ~p", [State#state.mod1, Error1]),
         mod1_failure
     end,
   Turn2 =
@@ -94,11 +98,11 @@ play(State) ->
       {Choice2, State2} when ?is_choice(Choice2) ->
         {Choice2, State2};
       InvalidResult2 ->
-        lager:error("~p return invalid result: ~p", [State#state.mod2, InvalidResult2]),
+        _ = lager:error("~p return invalid result: ~p", [State#state.mod2, InvalidResult2]),
         mod2_failure
     catch
       _:Error2 ->
-        lager:error("~p failed: ~p", [State#state.mod2, Error2]),
+        _ = lager:error("~p failed: ~p", [State#state.mod2, Error2]),
         mod2_failure
     end,
   case {Turn1, Turn2} of
