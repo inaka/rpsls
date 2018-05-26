@@ -31,8 +31,6 @@
 %% @private
 -spec init() -> State::term().
 init() ->
-    <<A1:32, A2:32, A3:32>> = crypto:strong_rand_bytes(12),
-    random:seed({A1, A2, A3}),
     {}.
 
 %% @doc
@@ -50,7 +48,7 @@ init() ->
 -spec play(History::[{You::rpsls_player:choice(), Rival::rpsls_player:choice()}],
            State::term()) -> {rpsls_player:choice(), NewState::term()}.
 play([], State) ->
-    {lists:nth(random:uniform(5), ?CHOICES), State};
+    {lists:nth(rand:uniform(5), ?CHOICES), State};
 play([{_, Rival}, {_, _}, {_, _}, {_, _}, {_, Rival0}, {_, Rival}|_T], State) ->
     {pick_one(who_defeat(Rival0)), State};
 play([{_, Rival}, {_, Rival}, {_, Rival}|_T], State) ->
@@ -65,7 +63,7 @@ play([{Me, _Rival}|_T], State) ->
 %%%===================================================================
 
 %% @private
-pick_one(L) -> lists:nth(random:uniform(2), L).
+pick_one(L) -> lists:nth(rand:uniform(2), L).
 
 %% @private
 who_defeat(scissors)           -> [spock, rock];

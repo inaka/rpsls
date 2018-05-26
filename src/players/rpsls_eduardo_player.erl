@@ -11,12 +11,12 @@
 
 %% @private
 -spec init() -> State::term().
-init() -> _ = random:seed(erlang:now()), {}.
+init() -> {}.
 
 -spec play(History::[{You::rpsls_player:choice(), Rival::rpsls_player:choice()}], State::term()) -> {rpsls_player:choice(), NewState::term()}.
-play(History, State) -> 
-    case History of 
-        [] ->  {lists:nth(random:uniform(5), [rock, paper, scissors, lizard, spock]), State};
+play(History, State) ->
+    case History of
+        [] ->  {lists:nth(rand:uniform(5), [rock, paper, scissors, lizard, spock]), State};
 	_ ->
             List = count_options(History, [ { rock , 0 } , { paper , 0 } , { scissors , 0 }, {lizard, 0}, {spock, 0} ]),
 	    C = choose( List , 0 , rock ),

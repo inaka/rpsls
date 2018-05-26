@@ -10,7 +10,7 @@
 
 %% @private
 -spec init() -> State::term().
-init() -> _ = random:seed(erlang:now()), {}.
+init() -> {}.
 
 -spec play(History::[{You::rpsls_player:choice(), Rival::rpsls_player:choice()}], State::term()) -> {rpsls_player:choice(), NewState::term()}.
-play(_History, {}) -> {lists:nth(random:uniform(5), [rock, paper, scissors, lizard, spock]), {}}.
+play(_History, {}) -> {lists:nth(rand:uniform(5), [rock, paper, scissors, lizard, spock]), {}}.
