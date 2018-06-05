@@ -1,9 +1,14 @@
-{application, rpsls,
- [
-  {description, "Rock Paper Scissors Lizzard Spock"},
-  {vsn, "0.0.0"},
-  {registered, []},
-  {applications, [kernel, stdlib, lager]},
-  {mod, {rpsls, []}},
-  {env, []}
- ]}.
+{ application
+, rpsls
+, [ {description, "Rock Paper Scissors Lizzard Spock"}
+  , {vsn, "1.0.0"}
+  , {id, "rpsls"}
+  , {registered, []}
+  , {applications, [kernel, stdlib, lager]}
+  , {mod, {rpsls, []}}
+  , {env, []}
+  , {maintainers, ["Inaka"]}
+  , {licenses, ["Apache2"]}
+  , {links, [{"Github", "https://github.com/inaka/rpsls"}]}
+  ]
+}.
