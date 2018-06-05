@@ -4,7 +4,7 @@
 -module(rpsls).
 -author('Fernando Benavides <fernando.benavides@inakanetworks.com>').
 
--define(is_choice(C), C == rock; C == paper; C == scissors; C == lizard; C == spock).
+-define(IS_CHOICE(C), C == rock; C == paper; C == scissors; C == lizard; C == spock).
 
 -record(state, {mod1    :: atom(),
                 mod2    :: atom(),
@@ -58,13 +58,16 @@ play(Mod1, Mod2) -> play(Mod1, Mod2, 1).
 %% @doc List all players on src/players
 -spec players() -> [atom()].
 players() ->
-  [list_to_atom(lists:takewhile(fun(C) -> C /= $. end, Player)) || "src/players/" ++ Player <- filelib:wildcard("src/players/*.erl")].
+  [ list_to_atom(lists:takewhile(fun(C) -> C /= $. end, filename:basename(PlayerPath)))
+  || PlayerPath <- filelib:wildcard(code:priv_dir(rpsls) ++ "/../src/players/*.erl")
+  ].
 
 %% ===================================================================
 %% Application callbacks
 %% ===================================================================
 %% @private
--spec start(normal | {takeover, node()} | {failover, node()}, term()) -> {ok, pid()} | {error, term()}.
+-spec start(normal | {takeover, node()} | {failover, node()}, term()) ->
+  {ok, pid()} | {error, term()}.
 start(_StartType, _StartArgs) -> {ok, self()}.
 
 %% @private
@@ -75,7 +78,8 @@ stop([]) -> ok.
 %% Private Functions
 %% ===================================================================
 %% @private
-play(#state{rounds = 0, score1 = Score, score2 = Score, history = History}) -> {draw, Score, History};
+play(#state{rounds = 0, score1 = Score, score2 = Score, history = History}) ->
+  {draw, Score, History};
 play(State = #state{rounds = 0}) when State#state.score1 > State#state.score2 ->
   {State#state.mod1, State#state.score1, State#state.score2, State#state.history};
 play(State = #state{rounds = 0}) when State#state.score1 < State#state.score2 ->
@@ -83,32 +87,32 @@ play(State = #state{rounds = 0}) when State#state.score1 < State#state.score2 ->
 play(State) ->
   Turn1 =
     try (State#state.mod1):play(State#state.history, State#state.st1) of
-      {Choice1, State1} when ?is_choice(Choice1) ->
+      {Choice1, State1} when ?IS_CHOICE(Choice1) ->
         {Choice1, State1};
       InvalidResult1 ->
         _ = lager:error("~p return invalid result: ~p", [State#state.mod1, InvalidResult1]),
         mod1_failure
     catch
       _:Error1 ->
-        _ = lager:error("~p failed: ~p", [State#state.mod1, Error1]),
+        _ = lager:error("~p failed: ~p / ~p", [State#state.mod1, Error1, erlang:get_stacktrace()]),
         mod1_failure
     end,
   Turn2 =
-    try (State#state.mod2):play([{Y,X} || {X,Y} <- State#state.history], State#state.st2) of
-      {Choice2, State2} when ?is_choice(Choice2) ->
+    try (State#state.mod2):play([{Y, X} || {X, Y} <- State#state.history], State#state.st2) of
+      {Choice2, State2} when ?IS_CHOICE(Choice2) ->
         {Choice2, State2};
       InvalidResult2 ->
         _ = lager:error("~p return invalid result: ~p", [State#state.mod2, InvalidResult2]),
         mod2_failure
     catch
       _:Error2 ->
-        _ = lager:error("~p failed: ~p", [State#state.mod2, Error2]),
+        _ = lager:error("~p failed: ~p / ~p", [State#state.mod2, Error2, erlang:get_stacktrace()]),
         mod2_failure
     end,
   case {Turn1, Turn2} of
     {mod1_failure, mod2_failure} -> throw(both_failure);
     {mod1_failure, _} -> throw(mod1_failure);
-    {_, mod2_failure} -> throw(mod2_failure);        
+    {_, mod2_failure} -> throw(mod2_failure);
     {{C1, S1}, {C2, S2}} ->
       NewState =
         case winner(C1, C2) of
@@ -116,9 +120,16 @@ play(State) ->
           1 -> State#state{st1 = S1, score1 = State#state.score1 + 1, st2 = S2};
           2 -> State#state{st2 = S2, score2 = State#state.score2 + 1, st1 = S1}
         end,
-        _ = lager:info("~p ~p vs. ~p ~p", [NewState#state.score1, NewState#state.mod1, NewState#state.mod2, NewState#state.score2]),
+        _ =
+          lager:info(
+            "~p ~p vs. ~p ~p",
+            [ NewState#state.score1
+            , NewState#state.mod1
+            , NewState#state.mod2
+            , NewState#state.score2
+            ]),
         play(NewState#state{rounds = State#state.rounds - 1,
-                            history = [{C1,C2} | State#state.history]})
+                            history = [{C1, C2} | State#state.history]})
   end.
 
 winner(C, C) -> _ = lager:info("~p is the same as ~p", [C, C]), none;
