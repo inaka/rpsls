@@ -58,8 +58,8 @@ play(Mod1, Mod2) -> play(Mod1, Mod2, 1).
 %% @doc List all players on src/players
 -spec players() -> [atom()].
 players() ->
-  [ list_to_atom(lists:takewhile(fun(C) -> C /= $. end, Player))
-  || "src/players/" ++ Player <- filelib:wildcard("src/players/*.erl")
+  [ list_to_atom(lists:takewhile(fun(C) -> C /= $. end, filename:basename(PlayerPath)))
+  || PlayerPath <- filelib:wildcard(code:priv_dir(rpsls) ++ "/../src/players/*.erl")
   ].
 
 %% ===================================================================
@@ -94,7 +94,7 @@ play(State) ->
         mod1_failure
     catch
       _:Error1 ->
-        _ = lager:error("~p failed: ~p", [State#state.mod1, Error1]),
+        _ = lager:error("~p failed: ~p / ~p", [State#state.mod1, Error1, erlang:get_stacktrace()]),
         mod1_failure
     end,
   Turn2 =
@@ -106,7 +106,7 @@ play(State) ->
         mod2_failure
     catch
       _:Error2 ->
-        _ = lager:error("~p failed: ~p", [State#state.mod2, Error2]),
+        _ = lager:error("~p failed: ~p / ~p", [State#state.mod2, Error2, erlang:get_stacktrace()]),
         mod2_failure
     end,
   case {Turn1, Turn2} of
